@@ -1,9 +1,6 @@
 package com.example;
 
 
-import com.example.controller.UserController;
-import com.example.view.UserPanel;
-
 import javax.swing.*;
 
 public class SwingApplication {

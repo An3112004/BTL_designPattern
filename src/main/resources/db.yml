@@ -1,4 +1,4 @@
 db:
-  url: jdbc:sqlserver://ADMIN-PC\\SQLSERVER:1433;databaseName=designPattern;encrypt=true;trustServerCertificate=true
+  url: jdbc:sqlserver://ADMIN-PC\\SQLSERVER:1433;databaseName=test2;encrypt=true;trustServerCertificate=true
   username: sa
   password: 12345678

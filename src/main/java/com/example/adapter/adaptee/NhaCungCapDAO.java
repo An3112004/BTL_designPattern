@@ -65,4 +65,16 @@ public class NhaCungCapDAO {
             e.printStackTrace();
         }
     }
+
+    public void delete(String maNCC) {
+        String sql = "DELETE FROM nhacungcap WHERE maNCC = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, maNCC);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

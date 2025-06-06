@@ -71,5 +71,19 @@ public class SanPhamDAO {
             e.printStackTrace();
         }
     }
+
+    public void delete(String maSP) {
+        String sql = "DELETE FROM sanpham WHERE maSP = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, maSP);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

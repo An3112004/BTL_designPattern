@@ -23,4 +23,10 @@ public class NhaCungCapDatabaseAdapter implements NhaCungCapDatabase {
     public void update(NhaCungCap ncc) {
         dao.update(ncc);
     }
+
+    @Override
+    public void delete(String maNCC) {
+        dao.delete(maNCC);
+    }
+
 }

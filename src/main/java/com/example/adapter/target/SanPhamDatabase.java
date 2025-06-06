@@ -8,4 +8,5 @@ public interface SanPhamDatabase {
     List<SanPham> getAll();
     void add(SanPham sanPham);
     void update(SanPham sanPham);
+    void delete(String maSP);
 }

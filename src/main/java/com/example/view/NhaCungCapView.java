@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NhaCungCapView extends JPanel {
     private JTextField txtMaNCC, txtTenNCC, txtDiaChi;
-    private JButton btnThem, btnSua;
+    private JButton btnThem, btnSua , btnXoa;
     private JTable table;
     private DefaultTableModel model;
     private NhaCungCapDatabaseAdapter adapter = new NhaCungCapDatabaseAdapter();
@@ -32,6 +32,7 @@ public class NhaCungCapView extends JPanel {
         txtDiaChi = new JTextField(15);
         btnThem = new JButton("Thêm");
         btnSua = new JButton("Sửa");
+        btnXoa = new JButton("Xóa");
 
         inputPanel.add(new JLabel("Mã NCC:"));
         inputPanel.add(txtMaNCC);
@@ -41,6 +42,7 @@ public class NhaCungCapView extends JPanel {
         inputPanel.add(txtDiaChi);
         inputPanel.add(btnThem);
         inputPanel.add(btnSua);
+        inputPanel.add(btnXoa);
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(titleLabel, BorderLayout.NORTH);
@@ -102,6 +104,24 @@ public class NhaCungCapView extends JPanel {
             clearInput();
             loadTable();
         });
+
+        btnXoa.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa");
+                return;
+            }
+
+            String ma = txtMaNCC.getText().trim();
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa nhà cung cấp này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                adapter.delete(ma);
+                clearInput();
+                loadTable();
+            }
+        });
+
 
         // Hiển thị khi click bảng
         table.addMouseListener(new MouseAdapter() {

@@ -24,4 +24,10 @@ public class SanPhamDatabaseAdapter implements SanPhamDatabase {
     public void update(SanPham sanPham) {
         sanPhamDAO.update(sanPham);
     }
+
+    @Override
+    public void delete(String maSP) {
+        sanPhamDAO.delete(maSP);
+    }
+
 }

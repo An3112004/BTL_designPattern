@@ -28,4 +28,10 @@ public class NhanVienDatabaseAdapter implements NhanVienDatabase {
     public void update(NhanVien nv) {
         nhanVienDAO.update(nv);
     }
+
+    @Override
+    public void delete(String maNV) {
+        nhanVienDAO.delete(maNV);
+    }
+
 }

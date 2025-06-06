@@ -11,7 +11,7 @@ import java.awt.event.*;
 public class SanPhamView extends JPanel {
     private JTextField txtMaSP, txtTenSP, txtGia;
     private JComboBox<String> cbLoai;
-    private JButton btnThem, btnSua;
+    private JButton btnThem, btnSua , btnXoa;
     private JTable table;
     private DefaultTableModel model;
     private SanPhamDatabaseAdapter adapter = new SanPhamDatabaseAdapter();
@@ -32,6 +32,7 @@ public class SanPhamView extends JPanel {
         cbLoai = new JComboBox<>(new String[]{"Đồ điện tử", "Quần áo"});
         btnThem = new JButton("Thêm");
         btnSua = new JButton("Sửa");
+        btnXoa = new JButton("Xoá");
 
         inputPanel.add(new JLabel("Mã SP:"));
         inputPanel.add(txtMaSP);
@@ -43,6 +44,7 @@ public class SanPhamView extends JPanel {
         inputPanel.add(cbLoai);
         inputPanel.add(btnThem);
         inputPanel.add(btnSua);
+        inputPanel.add(btnXoa);
 
         // Gộp tiêu đề và input panel vào 1 panel chứa BorderLayout
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -123,6 +125,24 @@ public class SanPhamView extends JPanel {
             clearInput();
             loadTable();
         });
+
+        btnXoa.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xoá");
+                return;
+            }
+
+            String maSP = model.getValueAt(row, 0).toString();
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                adapter.delete(maSP);
+                clearInput();
+                loadTable();
+            }
+        });
+
 
         // Click table để đổ dữ liệu lên form
         table.addMouseListener(new MouseAdapter() {

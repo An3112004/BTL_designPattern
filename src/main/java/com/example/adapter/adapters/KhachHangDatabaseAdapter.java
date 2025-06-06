@@ -25,4 +25,10 @@ public class KhachHangDatabaseAdapter implements KhachHangDatabase {
     public void update(KhachHang khachHang) {
         dao.update(khachHang);
     }
+
+    @Override
+    public void delete(String maKH) {
+        dao.delete(maKH);
+    }
+
 }

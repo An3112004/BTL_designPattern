@@ -12,7 +12,7 @@ import java.awt.event.*;
 public class NhanVienView extends JPanel {
     private JTextField txtMaKH, txtTenKH;
     private JComboBox<String> cbLoai;
-    private JButton btnThem, btnSua;
+    private JButton btnThem, btnSua , btnXoa;
     private JTable table;
     private DefaultTableModel model;
     private NhanVienDatabaseAdapter adapter = new NhanVienDatabaseAdapter();
@@ -33,6 +33,7 @@ public class NhanVienView extends JPanel {
         cbLoai = new JComboBox<>(new String[]{"Nhân viên kho", "Nhân viên bán hàng"});
         btnThem = new JButton("Thêm");
         btnSua = new JButton("Sửa");
+        btnXoa = new JButton("Xóa");
 
         inputPanel.add(new JLabel("Mã NV:"));
         inputPanel.add(txtMaKH);
@@ -42,6 +43,7 @@ public class NhanVienView extends JPanel {
         inputPanel.add(cbLoai);
         inputPanel.add(btnThem);
         inputPanel.add(btnSua);
+        inputPanel.add(btnXoa);
 
 // Gộp tiêu đề và inputPanel vào topPanel
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -136,6 +138,26 @@ public class NhanVienView extends JPanel {
             clearInput();
             loadTable();
         });
+
+        btnXoa.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa");
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Bạn có chắc muốn xóa nhân viên này?",
+                    "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                String maNV = model.getValueAt(row, 0).toString();
+                adapter.delete(maNV);
+                clearInput();
+                loadTable();
+            }
+        });
+
 
 
         // Click trên bảng -> hiển thị dữ liệu

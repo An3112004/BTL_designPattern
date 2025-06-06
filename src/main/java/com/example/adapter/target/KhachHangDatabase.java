@@ -8,4 +8,6 @@ public interface KhachHangDatabase {
     List<KhachHang> getAll();
     void add(KhachHang khachHang);
     void update(KhachHang khachHang);
+    void delete(String maKH);
+
 }

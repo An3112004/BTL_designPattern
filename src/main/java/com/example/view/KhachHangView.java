@@ -13,7 +13,7 @@ import java.util.List;
 public class KhachHangView extends JPanel {
     private JTextField txtMaKH, txtTenKH;
     private JComboBox<String> cbLoai;
-    private JButton btnThem, btnSua;
+    private JButton btnThem, btnSua , btnXoa;
     private JTable table;
     private DefaultTableModel model;
     private KhachHangDatabaseAdapter adapter = new KhachHangDatabaseAdapter();  // Adapter thay controller
@@ -33,6 +33,7 @@ public class KhachHangView extends JPanel {
         cbLoai = new JComboBox<>(new String[]{"Khách hàng cá nhân", "Khách hàng doanh nghiệp"});
         btnThem = new JButton("Thêm");
         btnSua = new JButton("Sửa");
+        btnXoa = new JButton("Xoá");
 
         inputPanel.add(new JLabel("Mã KH:"));
         inputPanel.add(txtMaKH);
@@ -42,6 +43,7 @@ public class KhachHangView extends JPanel {
         inputPanel.add(cbLoai);
         inputPanel.add(btnThem);
         inputPanel.add(btnSua);
+        inputPanel.add(btnXoa);
 
         // Gộp tiêu đề và input panel vào 1 panel chứa BorderLayout
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -101,6 +103,23 @@ public class KhachHangView extends JPanel {
             clearInput();
             loadTable();
         });
+
+        btnXoa.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xoá");
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá khách hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+            String maKH = model.getValueAt(row, 0).toString();
+            adapter.delete(maKH);
+            clearInput();
+            loadTable();
+        });
+
 
         // Click bảng -> hiện dữ liệu lên form
         table.addMouseListener(new MouseAdapter() {

@@ -19,7 +19,6 @@ public class NhanVienDAO {
                 String manv = rs.getString("MaNV");
                 String tennv = rs.getString("TenNV");
                 String vaitro = rs.getString("VaiTro");
-                System.out.println(manv + " " + tennv + " " + vaitro);
                 NhanVien nv = new NhanVien(manv , tennv , vaitro);
                 list.add(nv);
             }
@@ -55,4 +54,16 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
     }
+
+    public void delete(String maNV) {
+        String sql = "DELETE FROM nhanvien WHERE MaNV = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, maNV);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -68,5 +68,17 @@ public class KhachHangDAO {
             e.printStackTrace();
         }
     }
+
+    public void delete(String maKH) {
+        String sql = "DELETE FROM KhachHang WHERE maKH = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, maKH);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

@@ -8,4 +8,6 @@ public interface NhaCungCapDatabase {
     List<NhaCungCap> getAll();
     void add(NhaCungCap ncc);
     void update(NhaCungCap ncc);
+    void delete(String maNCC);
+
 }
